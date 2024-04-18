@@ -8,7 +8,7 @@ from app.models import Quote
 from app.writer import write_quotes_to_csv
 
 
-BASE_URL = "https://quotes.toscrape.com/page/"
+BASE_URL = "https://quotes.toscrape.com/"
 
 
 def get_single_quote(tag: Tag) -> Quote:
@@ -20,7 +20,9 @@ def get_single_quote(tag: Tag) -> Quote:
 
 
 def get_page_soup(page_number: int) -> BeautifulSoup:
-    page = requests.get(BASE_URL + str(page_number) + "/").content
+    request_url = BASE_URL + "page/" + str(page_number) + "/"
+
+    page = requests.get(request_url).content
     soup = BeautifulSoup(page, "html.parser")
 
     return soup
